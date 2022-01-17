@@ -1,10 +1,10 @@
 #AH Fee is calculated with this math:
 #0.5 + ($markupPED * 99.5) / (1990 + $markupPED)
 
-$nItems = Read-Host -Prompt 'Total number of items: '
-$totalTT = Read-Host -Prompt 'Total TT Value: '
-$markupLP = Read-Host -Prompt 'Lowest Markup % (i.e. 103)'
-$markupHP = Read-Host -Prompt 'Highest Markup % (i.e. 106)'
+$nItems = Read-Host -Prompt 'Total number of items'
+$totalTT = Read-Host -Prompt 'Total TT Value'
+$markupLP = Read-Host -Prompt 'Lowest Markup %'
+$markupHP = Read-Host -Prompt 'Highest Markup %'
 
 $TTitem = $TotalTT / $nItems
 
@@ -28,7 +28,7 @@ for ($i = 1; $i -le $nItems; $i++) {
                 Markup     = $markupP
                 PEDProfit  = [Math]::Truncate($PEDProfit * 100) / 100
             }
-            break
+            $sellPrice++
         }
         else {
             $sellPrice++
