@@ -39,5 +39,9 @@ for ($i = 1; $i -le $nItems; $i++) {
     }
 }
 
-Write-Host "----------------------------"
-$data | Sort-Object -Property PEDProfit -Desc | Select -First 10
+Write-Host "------------------------------------"
+$data = $data | Sort-Object -Property PEDProfit -Desc | Select -First 10  | Out-String
+Write-Host $data
+
+write-host "Done, press any key to close the script.";
+cmd /c pause | out-null;
