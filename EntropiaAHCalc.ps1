@@ -1,19 +1,19 @@
 #AH Fee is calculated with this math:
 #0.5 + ($markupPED * 99.5) / (1990 + $markupPED)
 
-$nItems = 2095
-$totalTT = 20.95
-$markupLP = 100
-$markupHP = 200
+#$nItems = 2095
+#$totalTT = 20.95
+#$markupLP = 100
+#$markupHP = 200
 
-#$nItems = Read-Host -Prompt 'Total number of items'
-#$totalTT = Read-Host -Prompt 'Total TT Value'
-#$markupLP = Read-Host -Prompt 'Lowest Markup %'
-#$markupHP = Read-Host -Prompt 'Highest Markup %'
+$nItems = Read-Host -Prompt 'Total number of items'
+$totalTT = Read-Host -Prompt 'Total TT Value'
+$markupLP = Read-Host -Prompt 'Lowest Markup %'
+$markupHP = Read-Host -Prompt 'Highest Markup %'
 
 $TTitem = $TotalTT / $nItems
 
-$data = @()
+$data = New-Object System.Collections.Generic.List[System.Object]
 
 for ($i = 1; $i -le $nItems; $i++) {
     $stackValue = $i * $TTitem
@@ -27,11 +27,13 @@ for ($i = 1; $i -le $nItems; $i++) {
             $AHFee = [Math]::Truncate($AHFee * 100) / 100
             $PEDProfit = $markupPED - $AHFee
 
-            $data += [PSCustomObject]@{
-                nItems     = $i
-                SellAmount = $sellPrice
-                Markup     = $markupP
-                PEDProfit  = [Math]::Truncate($PEDProfit * 100) / 100
+            if ($PEDProfit -gt 0) {
+                $data.add([PSCustomObject]@{
+                        nItems     = $i
+                        SellAmount = $sellPrice
+                        Markup     = $markupP
+                        PEDProfit  = [Math]::Truncate($PEDProfit * 100) / 100
+                    })
             }
             $sellPrice++
         }
